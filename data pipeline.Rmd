@@ -1,0 +1,177 @@
+---
+title: "Data pipeline"
+author: "clinton"
+date: "2023-08-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is the gapminder data pipeline. 
+Its always a good practice to offload the dashboard with any sort of computation, data wrangling procedures to a pipeline. 
+
+```{r}
+library(plotly)
+library(gapminder)
+library(data.table)
+library(plotly)
+library(tidyverse)
+library(ggthemes)
+library(sf)
+library(rnaturalearth)
+library(leaflet)
+```
+
+Summary stats
+
+```{r}
+dat <- data.table(gapminder)
+
+# how many continents do we have?
+length(unique(dat$continent))
+
+# average life expectance: 
+mean(dat$lifeExp)
+
+# average gdp per capita 
+mean(dat$gdpPercap)
+
+# number of countries
+length(unique(dat$country))
+
+```
+
+Life Expectancy
+
+```{r}
+
+# average life expectancy across the years
+life_exp <- dat[,.(avg_lifeExp=round(mean(lifeExp),1)),by=year]
+
+
+# line graph : couldn't install dygraph, will come back to this later. 
+# use plotly in the mean time. 
+ life_exp %>% 
+      plot_ly(x=~as.character(year),y=~avg_lifeExp,type = 'scatter', 
+              mode = "lines",
+              color = I('black')) %>%
+      plotly::layout(title = "",
+                     xaxis = list(zerolinecolor = '#ffff',
+                                  zerolinewidth = 2, gridcolor = 'ffff', title="Year"),
+                     yaxis = list(zerolinecolor = '#ffff',rangemode = "tozero",
+                                  zerolinewidth = 2,gridcolor = 'ffff', title="Life Expectancy"),
+                     plot_bgcolor  = "rgba(0, 0, 0, 0)",
+                     paper_bgcolor = "rgba(0, 0, 0, 0)") %>%
+      config(displayModeBar = FALSE, displaylogo = FALSE, 
+             scrollZoom = FALSE, showAxisDragHandles = TRUE, 
+             showSendToCloud = FALSE)
+
+```
+
+Population
+
+```{r}
+# calculate the average by continent
+population <- dat[,.(total_pop=sum(pop)),by=continent]
+
+# a bubble chart can do for this
+
+    population %>%
+      plot_ly() %>%
+      add_trace(x = ~reorder(continent, -total_pop), 
+                y = ~total_pop,
+                size = ~total_pop,
+                color = ~continent,
+                alpha = 1.5,
+                type = "scatter",
+                mode = "markers",
+                marker = list(symbol = 'circle', sizemode = 'diameter',color="black",
+                              line = list(width = 2, color = '#FFFFFF'), opacity=1.4)) %>%
+      add_text( x = ~reorder(continent, -total_pop), 
+                y = ~continent, 
+                text = ~total_pop,
+                textposition="middle center",
+                color = I("black")) %>%
+      layout(
+        showlegend = FALSE,
+        title="",
+        xaxis = list(
+          title = "Continent"
+        ),
+        yaxis = list(
+          title = "Population",rangemode = "tozero"
+        ),
+        plot_bgcolor  = "rgba(0, 0, 0, 0)",
+        paper_bgcolor = "rgba(0, 0, 0, 0)"
+      ) %>%
+      config(displayModeBar = FALSE, displaylogo = FALSE, 
+             scrollZoom = FALSE, showAxisDragHandles = TRUE, 
+             showSendToCloud = FALSE)
+    
+
+```
+
+gdp Per Capita 
+
+```{r}
+# get the averages by continent
+gdp <- dat[,.(avg_gdp=round(mean(gdpPercap)),1),by=continent]
+
+gdp %>% 
+  plot_ly(y=~avg_gdp,
+         x=~continent,
+         type="bar"
+         ) %>%
+  layout(title="",
+         yaxis=list(title="Average gdp per capita"),
+         xaxis=list(title="Continent"),
+          plot_bgcolor  = "rgba(0, 0, 0, 0)",
+        paper_bgcolor = "rgba(0, 0, 0, 0)") %>%
+  config(displayModeBar = FALSE, displaylogo = FALSE, 
+             scrollZoom = FALSE, showAxisDragHandles = TRUE, 
+             showSendToCloud = FALSE)
+  
+
+```
+
+
+## Map
+```{r}
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+world <- world %>% 
+  select(name_sort,label_x,label_y,pop_est)
+
+# get centroids for each country
+world.centroids <- world %>%
+  group_by(admin) %>%
+  mutate(cent.lat=mean(label_x),
+            cent.long=mean(label_y)) #%>%
+  #st_as_sf(coords = c('cent.lat','cent.long'), crs=4326)
+
+bins <- c(0, 1000000, 100000000, 1000000000,1500000000)
+pal <- colorBin("YlOrRd", domain = world$pop_est, bins = bins)
+
+
+leaflet() %>%
+      addTiles() %>%
+      addPolygons(data=world,
+                  #fillColor = ~pal(pop_est),
+                  weight = 2,
+                  opacity = 1,
+                  color = "white",
+                  dashArray = "3",
+                  fillOpacity = 0.7)
+
+dat[year==2002] %>%
+  ggplot(aes(fill = lifeExp, map_id = country)) +
+  geom_map(map = world_map) +
+  expand_limits(x = world_map$long, y = world_map$lat) +
+  theme_map()
+
+
+
+```
+

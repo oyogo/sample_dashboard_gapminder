@@ -1,0 +1,349 @@
+html {
+	 
+/* background-image: linear-gradient(to right,#8F8F8F,  #f0f0f0); */
+  background-color: #DBE4ED;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/*c("#8F8F8F", "#C4C4C4", "#EDEDED")*/
+
+body {
+
+	min-height: 611px;
+	margin: 0;
+}
+
+.ms-Nav {
+	background-color: #AAB5BC;
+}
+
+/* Assign grid instructions to our parent grid container */
+.grid-container {
+	display: grid;
+	grid-template-columns: 320px 1fr;
+	grid-template-rows: 54px 1fr 70px;
+	grid-template-areas: "header header" "sidenav main" "footer footer";
+	height: 100vh;
+	 
+}
+
+/* Give every child element its grid name */
+.header {
+	grid-area: header;
+	background-color: #FFFFFF;
+	padding: 6px 0px 6px 10px;
+	display: flex;
+	position: center;
+}
+
+.sidenav {
+	grid-area: sidenav;
+	z-index: 2;
+	/* background: linear-gradient(180deg, #8e97c544 0%, #699e9648 100%); */
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	position: fixed;
+	padding: 20px;
+	padding-top: 15%;
+	transition: left .3s ease-in-out;
+}
+
+
+.footer {
+  grid-area: footer;
+  background:#0B1F51;
+  padding: 5px;
+  
+}
+
+#center{
+  margin: auto;
+  text-align: center;
+  line-height: 0.2;
+}
+
+.openbtn {
+	font-size: 20px;
+	cursor: pointer;
+	background-color: rgba(17, 17, 17, 0);
+	color: rgb(0, 128, 248);
+	padding: 10px 15px;
+	border: none;
+}
+
+.closebtn {
+	font-size: 20px;
+	cursor: pointer;
+	background-color: rgba(17, 17, 17, 0);
+	color: rgb(0, 128, 248);
+	padding: 10px 15px;
+	border: none;
+}
+
+.ms-Nav {
+	background-color: #AAB5BC;
+	border-radius: 15px;
+}
+
+.ms-Nav-group {
+	grid-area: sidenav;
+	background-image: radial-gradient(50% 50% at 50% 50%, hsla(0, 0%, 90%, 0.6) 0%, #AAB5BC 100%);
+	box-shadow: 4px 2px 4px rgba(0, 0, 0, 0.25);
+	padding: 25px;
+	border-radius: 15px;
+}
+
+.sidenav>div:nth-child(2)>div {
+	margin-top: -500px;
+	height: 100vh;
+	padding-top: 550px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.main {
+	grid-area: main;
+	/*background: rgba(255, 255, 255, 0); */
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 20px;
+	max-width: calc(100vw);
+	max-height: calc(107vh - 100px);
+	overflow: auto;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	transition: margin-left .5s;
+
+}
+
+#main {
+	transition: margin-left .5s;
+	/* If you want a transition effect */
+	padding: 20px;
+}
+
+.ui.bottom.attached.segment.pushable {
+  background: transparent; 
+  
+}
+
+.ui.top.attached.dashboard-header.menu {
+  background: transparent;
+}
+
+body > div.ui.bottom.attached.segment.pushable > div.dashboard-sidebar.ui.left.vertical.visible.menu.sidebar.uncover > div {
+  
+  /*background: transparent;*/
+  border-radius: 15px;
+  margin-top: 40px;
+  margin-left: 20px;
+  
+}
+
+body > div.grid-container > div.sidenav > div > div > nav > div{
+  background-color: #AAB5BC;
+}
+
+
+.ui.top.attached.dashboard-header.menu {
+  background: #c8d3cf;
+}
+
+
+.title {
+	padding: 0px 14px 0px 14px;
+	color: #737373;
+	margin: 6px 0px 6px 10px;
+	border-left: 1px solid darkgray;
+}
+
+.page-title {
+	padding: 52px 0px;
+}
+
+.content-107 {
+	position: relative;
+	display: inline-block;
+	padding: 0px 12px;
+	color: rgb(50, 49, 48);
+	background: rgba(255, 255, 255, 0);
+}
+
+.ms-depth-8 {
+	box-shadow: 0 3.2px 7.2px 0 rgb(0 0 0 / 13%), 0 0.6px 1.8px 0 rgb(0 0 0 / 11%);
+	border-radius: 15px;
+}
+
+.linkIsSelected-129.is-selected {
+	color: #019644;
+	font-weight: 600;
+}
+
+.text-127 {
+	display: inline-block;
+	vertical-align: top;
+	text-decoration: overline;
+	color: rgb(0, 0, 0);
+	font-weight: 400;
+	font-size: 0.8em;
+}
+/*c("#D4D4D4", "#DEDEDE", "#E3E3E3")*/
+.card {
+	background: #AAB5BC;
+	padding: 10px;
+	margin-bottom: 28px;
+	margin-left: 10px;
+	border-radius: 15px;
+	background-clip: padding-box;
+	font-size: 1.2em;
+	color: black;
+}
+/*c("#DCDCDC")
+c("#DEDEDE", "#E8E8E8", "#F5F5F5") */
+
+.card_grey {
+	background: #B3B3B3;
+	padding: 10px;
+	margin-bottom: 28px;
+	margin-left: 10px;
+	border-radius: 15px;
+	background-clip: padding-box;
+	font-size: 1.2em;
+	color: black;
+}
+
+ .logo {
+  margin-bottom: 40px; 
+  padding-bottom: 20px;
+  height: 40px;
+  width: 50px;
+ }
+
+.card_title {
+	background: #B3B3B3;
+	padding: 28px;
+	margin-bottom: 28px;
+	margin-left: 200px;
+	margin-right: 200px;
+	border-radius: 25px;
+	background-clip: padding-box;
+	font-size: 1.2em;
+	color: white;
+}
+
+.card_dark {
+	background: rgba(0, 0, 0);
+	padding: 28px;
+	margin-bottom: 28px;
+	border-radius: 15px;
+	background-clip: padding-box;
+	font-size: 1.2em;
+	color: white;
+}
+
+
+.banner_center {
+	position: relative;
+	align-items: center;
+	display: grid;
+	justify-content: center;
+}
+
+.platform_picker {
+	padding: 0;
+	grid-gap: 12px 12px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+	margin-bottom: 25px;
+}
+
+.platform_picker>span {
+	display: block;
+}
+
+.platform_item {
+	width: 100%;
+	min-width: 100%;
+	height: 40px;
+	padding: 8px;
+	border: 1px solid #d2d0ce;
+	font-size: 12px;
+	outline: transparent;
+	position: relative;
+}
+
+.platform_item .ms-Icon {
+	color: #b4b3b1;
+}
+
+.ms-Shimmer-container {
+	margin: 10px 0;
+}
+
+.content-122 {
+	position: relative;
+	display: inline-block;
+	padding: 0px 12px;
+	color: rgb(50, 49, 48);
+	background: rgb(250, 249 248);
+}
+
+.ui.tab.bottom.attached.grid.segment.active {
+	background: none;
+	border: none;
+}
+
+
+
+body {
+	background: none;
+}
+
+
+
+.ui.attached.tabular.menu {
+	position: sticky;
+	background-image: linear-gradient(270deg, #000000 20%, #141414 50%);
+	margin-bottom: 10px;
+	z-index: 10000;
+}
+
+.ui.attached.tabular.menu .active.item {
+	background: #141414;
+	color: rgb(153, 153, 153);
+}
+
+.ui.fluid.card {
+	width: 100%;
+	max-width: 9999px;
+	background: linear-gradient(180deg, #8792C5 0%, #707CAF 100%);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ui.card {
+	width: 100%;
+	max-width: 9999px;
+	background: linear-gradient(180deg, #8792C5 0%, #707CAF 100%);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ui.styled.fluid.accordion .title:not(.ui) {
+	padding: .5em 0;
+	font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	color: rgba(238, 238, 238, 0.87);
+}
+
+.leaflet-container {
+	background-color: rgba(0,0,0,0);
+}
+
+
+
